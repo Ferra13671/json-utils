@@ -1,0 +1,44 @@
+plugins {
+    id 'java-library'
+    id 'maven-publish'
+}
+
+project.ext.projectName = "json-utils"
+group = 'com.ferra13671'
+version = '1.0'
+
+base {
+    archivesName = project.ext.projectName
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compileOnly "com.google.code.gson:gson:${project.gson_version}"
+    compileOnly "de.marhali:json5-java:${project.json5_version}"
+    compileOnly "org.hjson:hjson:${project.hjson_version}"
+
+    compileOnly("org.projectlombok:lombok:${project.lombok_version}")
+    annotationProcessor("org.projectlombok:lombok:${project.lombok_version}")
+}
+
+java {
+    withSourcesJar()
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            groupId = 'com.ferra13671'
+            artifactId = project.ext.projectName
+            artifact source: jar, classifier: null
+            artifact sourcesJar
+        }
+    }
+
+    repositories {
+        mavenLocal()
+    }
+}
