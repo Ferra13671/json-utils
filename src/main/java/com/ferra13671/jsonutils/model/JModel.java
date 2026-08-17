@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @UtilityClass
-public class JsonModel {
+public class JModel {
     private final List<JReader> readers = initReaders();
     private final List<JWriter> writers = initWriters();
 
