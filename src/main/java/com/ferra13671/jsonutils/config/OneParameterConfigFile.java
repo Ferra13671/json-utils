@@ -11,7 +11,7 @@ import java.nio.file.Path;
 public class OneParameterConfigFile extends ConfigFile {
     private final Parameter parameter;
 
-    public OneParameterConfigFile(Parameter parameter, Path defaultPath) {
+    public OneParameterConfigFile(Path defaultPath, Parameter parameter) {
         super(defaultPath);
 
         this.parameter = parameter;

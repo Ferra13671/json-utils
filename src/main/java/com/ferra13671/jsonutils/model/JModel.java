@@ -140,15 +140,15 @@ public class JModel {
 
         try {
             list.add(new HJReader());
-        } catch (Exception ignored) {}
+        } catch (Throwable ignored) {}
 
         try {
             list.add(new J5Reader());
-        } catch (Exception ignored) {}
+        } catch (Throwable ignored) {}
 
         try {
             list.add(new JDefaultReader());
-        } catch (Exception ignored) {}
+        } catch (Throwable ignored) {}
 
         return list;
     }
@@ -158,15 +158,15 @@ public class JModel {
 
         try {
             list.add(new HJWriter());
-        } catch (Exception ignored) {}
+        } catch (Throwable ignored) {}
 
         try {
             list.add(new J5Writer());
-        } catch (Exception ignored) {}
+        } catch (Throwable ignored) {}
 
         try {
             list.add(new JDefaultWriter());
-        } catch (Exception ignored) {}
+        } catch (Throwable ignored) {}
 
         return list;
     }

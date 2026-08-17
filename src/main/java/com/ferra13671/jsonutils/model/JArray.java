@@ -66,6 +66,14 @@ public class JArray extends JElement {
         return contains(type.toJsonFunction().apply(value));
     }
 
+    public JElement get(int index) {
+        return index < this.elements.size() ? this.elements.get(index) : new JElement();
+    }
+
+    public <T> T get(int index, JType<T> type, T defaultValue) {
+        return get(index).cast(type, defaultValue);
+    }
+
     public int size() {
         return this.elements.size();
     }

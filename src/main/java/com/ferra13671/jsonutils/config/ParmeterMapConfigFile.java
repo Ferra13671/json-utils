@@ -14,7 +14,7 @@ import java.util.Map;
 public class ParmeterMapConfigFile extends ConfigFile {
     private final Map<String, Parameter> parameterMap;
 
-    public ParmeterMapConfigFile(Map<String, Parameter> parameterMap, Path defaultPath) {
+    public ParmeterMapConfigFile(Path defaultPath, Map<String, Parameter> parameterMap) {
         super(defaultPath);
 
         this.parameterMap = parameterMap;
