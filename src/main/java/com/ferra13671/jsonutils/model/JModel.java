@@ -20,26 +20,45 @@ public class JModel {
     private final List<JReader> readers = initReaders();
     private final List<JWriter> writers = initWriters();
 
-    public JElement readNullable(Reader reader) {
+    public JElement readNullable(Reader reader, List<JReader> readers) {
         JElement element = null;
 
         for (JReader jReader : readers) {
             try {
+                System.out.println(jReader.getClass().getName());
                 element = jReader.read(reader);
+                if (!element.getClass().getName().equals(JElement.class.getName()))
+                    return element;
             } catch (Exception ignored) {}
         }
 
         return element;
     }
 
-    public JElement readNullable(String string) {
+    public JElement readNullable(Reader reader, JFormat format) {
+        return readNullable(reader, filterReaders(format));
+    }
+
+    public JElement readNullable(Reader reader) {
+        return readNullable(reader, readers);
+    }
+
+    public JElement readNullable(String string, List<JReader> readers) {
         try(StringReader reader = new StringReader(string)) {
-            return readNullable(reader);
+            return readNullable(reader, readers);
         }
     }
 
-    public JElement read(Reader reader) {
-        JElement element = readNullable(reader);
+    public JElement readNullable(String string, JFormat format) {
+        return readNullable(string, filterReaders(format));
+    }
+
+    public JElement readNullable(String string) {
+        return readNullable(string, readers);
+    }
+
+    public JElement read(Reader reader, List<JReader> readers) {
+        JElement element = readNullable(reader, readers);
 
         if (element == null)
             throw new UnsupportedOperationException("No one JReader was initialized, or the element could not be read.");
@@ -47,26 +66,52 @@ public class JModel {
         return element;
     }
 
-    public JElement read(String string) {
+    public JElement read(Reader reader, JFormat format) {
+        return read(reader, filterReaders(format));
+    }
+
+    public JElement read(Reader reader) {
+        return read(reader, readers);
+    }
+
+    public JElement read(String string, List<JReader> readers) {
         try(StringReader reader = new StringReader(string)) {
-            return read(reader);
+            return read(reader, readers);
         }
     }
 
-    public String toStringNullable(JElement element) {
+    public JElement read(String string, JFormat format) {
+        return read(string, filterReaders(format));
+    }
+
+    public JElement read(String string) {
+        return read(string, readers);
+    }
+
+    public String writeNullable(JElement element, List<JWriter> writers) {
         String s = null;
 
         for (JWriter jWriter : writers) {
             try {
-                s = jWriter.toString(element);
+                s = jWriter.write(element);
+                if (s != null)
+                    return s;
             } catch (Exception ignored) {}
         }
 
         return s;
     }
 
-    public String toString(JElement element) {
-        String s = toStringNullable(element);
+    public String writeNullable(JElement element, JFormat format) {
+        return writeNullable(element, filterWriters(format));
+    }
+
+    public String writeNullable(JElement element) {
+        return writeNullable(element, writers);
+    }
+
+    public String write(JElement element, List<JWriter> writers) {
+        String s = writeNullable(element, writers);
 
         if (s == null)
             throw new UnsupportedOperationException("No one JWriter was initialized, or the element could not be write to string.");
@@ -74,37 +119,53 @@ public class JModel {
         return s;
     }
 
-    public List<JReader> initReaders() {
+    public String write(JElement element, JFormat format) {
+        return write(element, filterWriters(format));
+    }
+
+    public String write(JElement element) {
+        return write(element, writers);
+    }
+
+    private List<JReader> filterReaders(JFormat format) {
+        return readers.stream().filter(format.isSameReaderFunction::apply).toList();
+    }
+
+    private List<JWriter> filterWriters(JFormat format) {
+        return writers.stream().filter(format.isSameWriterFunction::apply).toList();
+    }
+
+    private List<JReader> initReaders() {
         List<JReader> list = new ArrayList<>();
 
         try {
-            list.addLast(new JDefaultReader());
+            list.add(new HJReader());
         } catch (Exception ignored) {}
 
         try {
-            list.addLast(new J5Reader());
+            list.add(new J5Reader());
         } catch (Exception ignored) {}
 
         try {
-            list.addLast(new HJReader());
+            list.add(new JDefaultReader());
         } catch (Exception ignored) {}
 
         return list;
     }
 
-    public List<JWriter> initWriters() {
+    private List<JWriter> initWriters() {
         List<JWriter> list = new ArrayList<>();
 
         try {
-            list.addLast(new JDefaultWriter());
+            list.add(new HJWriter());
         } catch (Exception ignored) {}
 
         try {
-            list.addLast(new J5Writer());
+            list.add(new J5Writer());
         } catch (Exception ignored) {}
 
         try {
-            list.addLast(new HJWriter());
+            list.add(new JDefaultWriter());
         } catch (Exception ignored) {}
 
         return list;

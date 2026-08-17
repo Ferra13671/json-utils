@@ -30,7 +30,7 @@ public class JDefaultReader implements JReader {
         if (element instanceof JsonArray array)
             return toJElement(array);
 
-        return new JElement();
+        return null;
     }
 
     public JElement toJElement(JsonPrimitive primitive) {
@@ -40,7 +40,10 @@ public class JDefaultReader implements JReader {
         if (primitive.isNumber())
             return new JValue(primitive.getAsNumber());
 
-        return new JValue(primitive.getAsString());
+        if (primitive.isString())
+            return new JValue(primitive.getAsString());
+
+        return null;
     }
 
     public JElement toJElement(JsonObject object) {

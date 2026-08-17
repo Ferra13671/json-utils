@@ -13,7 +13,7 @@ public class HJWriter implements JWriter {
     private final Stringify stringify = Stringify.HJSON;
 
     @Override
-    public String toString(JElement element) {
+    public String write(JElement element) {
         return toHJson(element).toString(this.stringify);
     }
 

@@ -20,9 +20,9 @@ public class HJReader implements JReader {
     @Override
     public JElement read(Reader reader) {
         try {
-            return toJElement(JsonValue.readHjson(reader));
+            return toJElement(JsonObject.readHjson(reader));
         } catch (Exception e) {
-            return new JElement();
+            return null;
         }
     }
 
@@ -46,7 +46,7 @@ public class HJReader implements JReader {
         if (primitive.isString())
             return new JValue(primitive.asString());
 
-        return new JElement();
+        return null;
     }
 
     public JElement toJElement(JsonObject object) {

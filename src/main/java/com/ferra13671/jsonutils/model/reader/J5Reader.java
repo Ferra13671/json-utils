@@ -34,7 +34,7 @@ public class J5Reader implements JReader {
         if (element instanceof Json5Array array)
             return toJElement(array);
 
-        return new JElement();
+        return null;
     }
 
     public JElement toJElement(Json5Primitive primitive) {
@@ -44,7 +44,10 @@ public class J5Reader implements JReader {
         if (primitive.isNumber())
             return new JValue(primitive.getAsNumber());
 
-        return new JValue(primitive.getAsString());
+        if (primitive.isString())
+            return new JValue(primitive.getAsString());
+
+        return null;
     }
 
     public JElement toJElement(Json5Object object) {

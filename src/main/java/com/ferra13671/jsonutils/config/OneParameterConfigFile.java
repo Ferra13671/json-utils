@@ -37,7 +37,7 @@ public class OneParameterConfigFile extends ConfigFile {
 
         if (element != null)
             try (OutputStreamWriter writer = new OutputStreamWriter(outputStream, StandardCharsets.UTF_8)) {
-                writer.write(JModel.toString(element));
+                writer.write(JModel.write(element));
             }
     }
 }

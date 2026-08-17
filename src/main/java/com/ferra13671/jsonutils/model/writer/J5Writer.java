@@ -13,7 +13,7 @@ public class J5Writer implements JWriter {
             .build();
 
     @Override
-    public String toString(JElement element) {
+    public String write(JElement element) {
         return toJson5(element).toString(this.options);
     }
 

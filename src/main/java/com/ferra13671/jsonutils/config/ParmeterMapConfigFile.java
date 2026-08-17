@@ -45,7 +45,7 @@ public class ParmeterMapConfigFile extends ConfigFile {
         });
 
         try (OutputStreamWriter writer = new OutputStreamWriter(outputStream, StandardCharsets.UTF_8)) {
-            writer.write(JModel.toString(object));
+            writer.write(JModel.write(object));
         }
     }
 }

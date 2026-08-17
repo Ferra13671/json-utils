@@ -12,7 +12,7 @@ public class JDefaultWriter implements JWriter {
             .create();
     
     @Override
-    public String toString(JElement element) {
+    public String write(JElement element) {
         return this.gson.toJson(toJson(element));
     }
     
