@@ -1,0 +1,16 @@
+{
+  //comment example
+  a: "A example",
+  b: {
+    "": "B example ${id = $<this>.e}",
+
+    d: "${id = $<parent>.c} D example",
+    c: "BC example",
+    e: "E example",
+    f: [
+      "F example 1",
+      "F example 2",
+      "F example 3"
+    ]
+  }
+}
