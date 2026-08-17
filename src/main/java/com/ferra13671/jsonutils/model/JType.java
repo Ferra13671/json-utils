@@ -21,4 +21,22 @@ public record JType<T>(Function<JElement, Boolean> equalsFunction, Function<JEle
             element -> (JArray) element,
             array -> array
     );
+
+    public static final JType<Boolean> BOOLEAN = new JType<>(
+            element -> element instanceof JValue value && value.isBoolean(),
+            element -> ((JValue) element).getAsBoolean(),
+            JValue::new
+    );
+
+    public static final JType<Number> NUMBER = new JType<>(
+            element -> element instanceof JValue value && value.isNumber(),
+            element ->  ((JValue) element).getAsNumber(),
+            JValue::new
+    );
+
+    public static final JType<String> STRING = new JType<>(
+            element -> element instanceof JValue value && value.isString(),
+            element -> ((JValue) element).getAsString(),
+            JValue::new
+    );
 }
