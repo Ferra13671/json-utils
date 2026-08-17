@@ -1,0 +1,18 @@
+plugins {
+    id 'java-library'
+}
+
+repositories {
+    mavenCentral()
+    mavenLocal()
+}
+
+dependencies {
+    implementation rootProject
+    implementation "com.google.code.gson:gson:${project.gson_version}"
+    implementation "de.marhali:json5-java:${project.json5_version}"
+    implementation "org.hjson:hjson:${project.hjson_version}"
+
+    compileOnly("org.projectlombok:lombok:${project.lombok_version}")
+    annotationProcessor("org.projectlombok:lombok:${project.lombok_version}")
+}
