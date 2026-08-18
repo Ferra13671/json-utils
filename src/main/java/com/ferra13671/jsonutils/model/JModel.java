@@ -25,7 +25,6 @@ public class JModel {
 
         for (JReader jReader : readers) {
             try {
-                System.out.println(jReader.getClass().getName());
                 element = jReader.read(reader);
                 if (!element.getClass().getName().equals(JElement.class.getName()))
                     return element;
